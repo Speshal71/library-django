@@ -1,0 +1,26 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>{{ book.name }}</h1>
+
+  {% if user.is_authenticated %}
+    <p>Moderator function: <a href="{% url 'update_book' book.id %}">Cange content</a></p>
+  {% endif %}
+
+  <p><strong>Authors:</strong> 
+    <ul>
+    {% for author in book.author.all %}
+        <li><a href={% url 'author' author.id%}>{{ author }}</a></li>
+    {% endfor %}
+    </ul>
+  </p>
+  <p><strong>Description:</strong> {{ book.desc }}</p>
+  <p><strong>Genre:</strong> 
+  <ul>
+    {% for genre in book.genre.all %}
+        <li>{{ genre }}</li>
+    {% endfor %}
+    </ul>
+  </p>  
+  <p><strong>The number of available copies:</strong> {{ book.count }}</p>
+{% endblock %}

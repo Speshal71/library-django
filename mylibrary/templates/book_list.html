@@ -1,0 +1,34 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1>The list of available books</h1>
+
+<form method="get">
+    {% csrf_token %}
+    <center>
+    <p>
+        <input type="search" placeholder="Search for the book" size="50" name="filter">
+        <input type="submit" value="GO!">
+    </p>
+    </center>
+</form>
+
+{% if user.is_authenticated %}
+    <p>Moderator function: <a href="{% url 'create_book' %}">Create new book</a></p>
+{% endif %}
+
+{% for book in books %}
+
+<li>
+    <a href={% url 'book' book.id %}><strong>"{{ book.name }}"</strong>,</a>
+    <em>
+    {% for author in book.author.all %}
+        {{ author }},
+    {% endfor %}
+    </em>
+    издательство {{ book.pub_house_fk.name }}
+</li>
+
+{% endfor %}
+
+{% endblock %}

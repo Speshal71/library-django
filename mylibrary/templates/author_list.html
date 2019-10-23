@@ -1,0 +1,28 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1>The list of available authors</h1>
+
+<form method="get">
+    {% csrf_token %}
+    <center>
+    <p>
+        <input type="search" placeholder="Search for the author" size="50" name="filter">
+        <input type="submit" value="GO!">
+    </p>
+    </center>
+</form>
+
+{% if user.is_authenticated %}
+    <p>Moderator function: <a href="{% url 'create_author' %}">Create new author</a></p>
+{% endif %}
+
+{% for author in authors %}
+
+<li>
+    <a href={% url 'author' author.id %}><strong>{{ author }}</strong></a>
+</li>
+
+{% endfor %}
+
+{% endblock %}

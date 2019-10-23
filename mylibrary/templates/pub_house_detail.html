@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>{{ ph }}</h1>
+
+  {% if user.is_authenticated %}
+    <p>Moderator function: <a href="{% url 'update_pub_house' ph.id %}">Cange content</a></p>
+  {% endif %}
+
+  <p><strong>Description:</strong> {{ ph.desc }}</p>
+  <p><strong>Phone:</strong> {{ ph.phone }}</p>
+  <p><strong>Email:</strong> {{ ph.email }}</p>
+
+  <p><strong>available books of {{ ph }}:</strong> 
+    <ul>
+    {% for book in ph.book_set.all %}
+        <li><a href={% url 'book' book.id %}><strong>"{{ book }}"</strong>,</a></li>
+    {% endfor %}
+    </ul>
+  </p>
+{% endblock %}

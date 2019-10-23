@@ -1,0 +1,28 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1>The list of available Publishing houses</h1>
+
+<form method="get">
+    {% csrf_token %}
+    <center>
+    <p>
+        <input type="search" placeholder="Search for the ublishing house" size="50" name="filter">
+        <input type="submit" value="GO!">
+    </p>
+    </center>
+</form>
+
+{% if user.is_authenticated %}
+    <p>Moderator function: <a href="{% url 'create_pub_house' %}">Create new Publishing house</a></p>
+{% endif %}
+
+{% for house in ph %}
+
+<li>
+    <a href={% url 'pub_house' house.id %}><strong>"{{ house }}"</strong>,</a>
+</li>
+
+{% endfor %}
+
+{% endblock %}

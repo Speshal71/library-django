@@ -1,0 +1,15 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <center><h1>Weclome to our Electronic Library</h1></center>
+  <p>
+    On this web-site you can find information about currently available books, search for books by authors or even by publishing house.
+    Currently we have:
+  </p>
+  <ul>
+    <li><strong>{{num_books}}</strong> different titles</li>
+    <li><strong>{{num_inst_books}}</strong> books in total</li>
+    <li><strong>{{ num_authors }}</strong> different authors</li>
+    <li><strong>{{ num_pub}}</strong> different publishing houses</li>
+  </ul>
+{% endblock %}

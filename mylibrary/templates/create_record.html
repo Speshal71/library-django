@@ -1,0 +1,17 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Add new record</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        
+        {{ form }}
+
+        <input type="submit" value="save">
+    </form>
+
+    {% if record %}
+        <a href="{% url del_link record.id%}">Delete this record</a>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,55 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  {% block title %}<title>Electronic Library</title>{% endblock %}
+
+  <style>
+    body {
+        margin: 5% 20%
+    }
+    h2 {
+        display: inline;
+        margin-inline-end: 20px; 
+    }
+  </style>
+</head>
+
+<body>
+    {% if user.is_authenticated %}
+        <p align="right"><a href="{% url 'logout' %}">logout</a></p>
+    {% else %}
+        <p align="right"><a href="{% url 'login' %}">login</a></p>
+    {% endif %}
+
+    {% block sidebar %}
+        <center>
+            <h2><a href="{% url 'index' %}">Home</a></h2>
+            <h2><a href="{% url 'books' %}">All Books</a></h2>
+            <h2><a href="{% url 'authors' %}">All Authors</a></h2>
+            <h2><a href="{% url 'pubhouses' %}">All Pub. Houses</a></h2>
+        </center>
+    {% endblock %}
+
+    {% block content %}{% endblock %}
+
+    {% block pagination %}
+        {% if is_paginated %}
+            <div class="pagination">
+                <span class="page-links">
+                    {% if page_obj.has_previous %}
+                        <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
+                    {% endif %}
+                    <span class="page-current">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                    </span>
+                    {% if page_obj.has_next %}
+                        <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+                    {% endif %}
+                </span>
+            </div>
+        {% endif %}
+    {% endblock %} 
+
+</body>
+</html>
